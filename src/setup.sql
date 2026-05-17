@@ -109,3 +109,38 @@ VALUES
 (305, 3, 'Holiday Shelter Assistance',
  'Volunteer staffing for local homeless shelters during holidays.',
  'Philadelphia, PA', '2026-05-28');
+
+ CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE serviceproject_category (
+    serviceproject_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    PRIMARY KEY (serviceproject_id, category_id),
+
+    CONSTRAINT fk_serviceproject
+        FOREIGN KEY (serviceproject_id)
+        REFERENCES serviceprojects(project_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id)
+        REFERENCES category(category_id)
+        ON DELETE CASCADE
+);
+
+INSERT INTO category (name)
+VALUES
+    ('Education'),
+    ('Healthcare'),
+    ('Environment');
+
+INSERT INTO serviceproject_category (serviceproject_id, category_id)
+VALUES
+    (101, 1),
+    (101, 3),
+    (201, 2),
+    (301, 1);

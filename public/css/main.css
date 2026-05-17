@@ -208,6 +208,10 @@ footer {
     margin-top: 3rem;
 }
 
+footer p{
+    color: white;
+}
+
 a:focus,
 button:focus {
     outline: 3px solid #60a5fa;
