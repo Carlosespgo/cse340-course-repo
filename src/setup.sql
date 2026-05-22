@@ -110,7 +110,7 @@ VALUES
  'Volunteer staffing for local homeless shelters during holidays.',
  'Philadelphia, PA', '2026-05-28');
 
- CREATE TABLE category (
+CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE
 );
