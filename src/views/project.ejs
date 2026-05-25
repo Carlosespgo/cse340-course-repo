@@ -23,5 +23,17 @@
                 <%= project.org_name %>
             </a>
         </p>
+        <p>
+            <strong>Categories:</strong>
+            <% if (categories.length > 0) { %>
+                <% categories.forEach(category => { %>
+                    <a href="/category/<%= category.category_id %>">
+                        <%= category.name %>
+                    </a>
+                <% }) %>
+            <% } else { %>
+                No categories assigned.
+            <% } %>
+        </p>
     </main>
 <%- include('partials/footer') %>

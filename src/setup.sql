@@ -144,3 +144,18 @@ VALUES
     (101, 3),
     (201, 2),
     (301, 1);
+
+INSERT INTO serviceproject_category (serviceproject_id, category_id)
+VALUES
+    (102, 3),
+    (103, 1),
+    (104, 2),
+    (105, 3),
+    (202, 1),
+    (203, 2),
+    (204, 3),
+    (205, 1),
+    (302, 2),
+    (303, 3),
+    (304, 1),
+    (305, 2);
