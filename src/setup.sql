@@ -41,6 +41,9 @@ ADD CONSTRAINT fk_organization
 FOREIGN KEY (id_organization)
 REFERENCES organization(id_organization)
 
+ALTER TABLE serviceprojects
+ALTER COLUMN project_id ADD GENERATED ALWAYS AS IDENTITY;
+
 INSERT INTO ServiceProjects
 (project_id, id_organization, title, description, location, project_date)
 VALUES
