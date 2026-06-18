@@ -15,7 +15,9 @@ import { showProjectsPage,
     showNewProjectForm, 
     projectValidation,
     showEditProjectForm,
-    processEditProjectForm
+    processEditProjectForm,
+    processAddVolunteer,
+    processRemoveVolunteer
 } from './controllers/projects.js';
 import { showCategoriesPage,
     showCategoryDetailsPage,
@@ -36,7 +38,8 @@ import { showUserRegistrationForm,
     requireLogin,
     showDashboard,
     requireRole,
-    showAllUsers
+    showAllUsers,
+    showVolunteerProjects
 } from './controllers/users.js';
 
 const router = express.Router();
@@ -61,6 +64,7 @@ router.get('/login', showLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/users', requireRole('admin'), showAllUsers);
+router.get('/dashboard', requireLogin, showVolunteerProjects);
 
 
 router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
@@ -72,6 +76,8 @@ router.post('/new-category', requireRole('admin'), categoriesValidation, process
 router.post('/edit-category/:id', requireRole('admin'), categoriesValidation, processEditCategory);
 router.post('/register', processUserRegistrationForm);
 router.post('/login', processLoginForm);
+router.post('/project/:id/volunteer', requireLogin, processAddVolunteer);
+router.post('/project/:id/unvolunteer', requireLogin, processRemoveVolunteer);
 
 
 export default router;

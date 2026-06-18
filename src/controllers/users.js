@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser, getAllUsers} from '../models/users.js';
+import { createUser, authenticateUser, getAllUsers, getVolunteerProjects} from '../models/users.js';
 
 
 const showUserRegistrationForm = (req, res) => {
@@ -74,16 +74,17 @@ const requireLogin = (req, res, next) => {
     next();
 };
 
-const showDashboard = (req, res) => {
+const showDashboard = async (req, res) => {
     const user = req.session.user;
 
-    console.log('SESSION USER:', user);
+    const projects = await getVolunteerProjects(user.user_id);
 
     res.render('dashboard', {
         title: 'Dashboard',
         user,
         name: user.name,
-        email: user.email
+        email: user.email,
+        projects
     });
 };
 
@@ -109,7 +110,21 @@ const showAllUsers = async (req, res) => {
     } catch (error) {
         console.error('Error fetching users:', error);
         req.flash('error', 'An error occurred while fetching users. Please try again.');
-        res.redirect('/');
+        res.redirect('/dashboard');
+    }
+};
+
+const showVolunteerProjects = async (req, res) => {
+    const userId = req.session.user.user_id;
+    try {        const projects = await getVolunteerProjects(userId);
+        console.log('User ID:', userId);
+        console.log('Projects:', projects);
+        const title = 'My Volunteer Projects';
+        res.render('/dashboard', { title, projects });
+    } catch (error) {
+        console.error('Error fetching volunteer projects:', error);
+        req.flash('error', 'An error occurred while fetching your volunteer projects. Please try again.');
+        res.redirect('/dashboard');
     }
 };
 
@@ -121,5 +136,6 @@ export { showUserRegistrationForm,
     requireLogin,
     requireRole,
     showDashboard,
-    showAllUsers
+    showAllUsers, 
+    showVolunteerProjects
 };

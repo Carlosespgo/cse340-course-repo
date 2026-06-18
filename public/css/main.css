@@ -352,6 +352,98 @@ tbody tr:hover {
     background-color: #f8f9fa;
 }
 
+.volunteer-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.project-content {
+    flex: 1;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #2c3e50;
+}
+
+.project-description {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.btn-remove {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+
+    transition: background 0.2s ease;
+}
+
+.btn-remove:hover {
+    background: #b02a37;
+}
+
+.empty-projects {
+    background: #f8f9fa;
+    border: 1px dashed #ccc;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    color: #666;
+}
+
+/* Botón Volunteer */
+.btn-volunteer {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-volunteer:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Botón Unvolunteer */
+.btn-unvolunteer {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-unvolunteer:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
 /* ===== LOGO ===== */
 
 .logo {

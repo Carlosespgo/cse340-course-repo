@@ -46,6 +46,10 @@ const showAssignCategoriesForm = async (req, res) => {
 const processAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const selectedCategoryIds = req.body.categoryIds || [];
+
+    console.log("projectId:", projectId);
+    console.log("req.body:", req.body);
+    console.log("selectedCategoryIds:", selectedCategoryIds);
     
     // Ensure selectedCategoryIds is an array
     const categoryIdsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds];

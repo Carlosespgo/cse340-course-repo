@@ -139,11 +139,61 @@ const updateProject = async (projectId, organizationId, title, description, loca
   return result.rows[0].project_id;
 };
 
+const addVolunteer = async (serviceproject_id, user_id) => {
+  try {
+  const query = `
+    INSERT INTO public.project_volunteers (serviceproject_id, user_id)
+    VALUES ($1, $2)
+    RETURNING serviceproject_id, user_id;
+  `;
+
+  const queryParams = [serviceproject_id, user_id];
+  const result = await db.query(query, queryParams);
+
+  if (process.env.ENABLE_SQL_LOGGING === 'true') {
+    console.log('Added volunteer to project:', result.rows[0]);
+  }
+
+  return result.rows[0];
+  } 
+  catch (error) {
+  if (error.code === '23505') {
+    throw new Error('User is already registered for this project');
+  }
+  throw error;
+  }
+};
+
+const removeVolunteer = async (serviceproject_id, user_id) => {
+  const query = `
+    DELETE FROM public.project_volunteers
+    WHERE serviceproject_id = $1 AND user_id = $2
+    RETURNING serviceproject_id, user_id;
+  `; 
+
+  const queryParams = [serviceproject_id, user_id];
+  const result = await  
+
+  db.query(query, queryParams); 
+
+  if (process.env.ENABLE_SQL_LOGGING === 'true') {
+    console.log('Removed volunteer from project:', result.rows[0]);
+  }
+
+  if (result.rows.length === 0) {
+  throw new Error('Volunteer registration not found');
+  }
+
+  return result.rows[0];
+};
+
 export { getAllProjects,
     getProjectsByOrganizationId,
     getUpcomingProjects, 
     getProjectDetails,
     getServiceProjectFromCategory,
     createProject,
-    updateProject
+    updateProject,
+    addVolunteer,
+    removeVolunteer
 };

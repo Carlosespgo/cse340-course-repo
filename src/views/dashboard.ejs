@@ -7,5 +7,40 @@
         <% if (user && user.role_name === 'admin') { %>
             <a href="/users" class="btn-edit">View All Users</a>
         <% } %>
+        <h2>My Volunteer Projects</h2>
+        <% if (projects && projects.length > 0) { %>
+            <div class="volunteer-projects">
+                <% projects.forEach(project => { %>
+                    <div class="project-card">
+                        <div class="project-content">
+                            <h3><%= project.title %></h3>
+                            <p class="project-description">
+                                <%= project.description %>
+                            </p>
+                            <p>
+                                <strong>📍 Location:</strong>
+                                <%= project.location %>
+                            </p>
+                            <p>
+                                <strong>📅 Date:</strong>
+                                <%= new Date(project.project_date).toLocaleDateString() %>
+                            </p>
+                        </div>
+                        <form
+                            method="POST"
+                            action="/project/<%= project.project_id %>/unvolunteer"
+                        >
+                            <button type="submit" class="btn-remove">
+                                Remove Me
+                            </button>
+                        </form>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="empty-projects">
+                <p>You are not signed up for any volunteer projects.</p>
+            </div>
+        <% } %>
     </main>
 <%- include('partials/footer') %>

@@ -78,4 +78,31 @@ const authenticateUser = async (email, password) => {
     return user; // Authentication successful
 };
 
-export { createUser, authenticateUser, getAllUsers };
+const getVolunteerProjects = async (userId) => {
+    const query = `
+        SELECT sp.project_id, sp.title, sp.description, sp.location, sp.project_date
+        FROM serviceprojects sp
+        JOIN project_volunteers pv ON sp.project_id = pv.serviceproject_id
+        WHERE pv.user_id = $1
+        ORDER BY sp.project_date ASC
+    `;
+
+    const queryParams = [userId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows;
+};
+
+const isVolunteerForProject = async (userId, projectId) => {
+    const query = `
+        SELECT 1
+        FROM project_volunteers
+        WHERE user_id = $1 AND serviceproject_id = $2
+    `;
+    const queryParams = [userId, projectId];
+    const result = await db.query(query, queryParams);
+
+    return result.rows.length > 0;
+};
+
+export { createUser, authenticateUser, getAllUsers, getVolunteerProjects, isVolunteerForProject };
